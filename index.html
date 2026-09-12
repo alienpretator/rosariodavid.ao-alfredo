@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#123C32">
+    <title>Associação Terra Vermelha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- BLOCO DE ANÚNCIO (TOPO) -->
+    <div class="ad-banner">
+        <script>
+            atOptions = {
+                'key' : 'fe5f4a2cdc68f13e6ccae920744683cb',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };
+        </script>
+        <script src="https://www.highrevenueformat.com/fe5f4a2cdc68f13e6ccae920744683cb/invoke.js"></script>
+    </div>
+
+    <!-- HEADER -->
+    <header class="topbar">
+        <div>
+            <span class="eyebrow">GESTÃO FINANCEIRA</span>
+            <h1>Associação Terra Vermelha</h1>
+        </div>
+
+        <button class="icon-btn" onclick="alternarTema()" aria-label="Alterar tema">
+            ◐
+        </button>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="screen active">
+
+            <div class="welcome">
+                <span>Painel administrativo</span>
+                <h2>Visão geral</h2>
+                <p>Acompanhe os principais movimentos da associação.</p>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card destaque">
+                    <span>Total arrecadado</span>
+                    <strong id="totalArrecadado">0,00 Kz</strong>
+                    <small>Contribuições registadas</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Integrantes</span>
+                    <strong id="totalMembros">0</strong>
+                    <small>Membros cadastrados</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Contribuições</span>
+                    <strong id="totalContribuicoes">0</strong>
+                    <small>Registos financeiros</small>
+                </div>
+
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">ACESSO RÁPIDO</span>
+                    <h3>Operações</h3>
+                </div>
+            </div>
+
+            <div class="quick-grid">
+
+                <button class="quick-card" onclick="mostrarTela('novoMembro')">
+                    <span class="quick-icon">+</span>
+                    <strong>Novo integrante</strong>
+                    <small>Cadastrar membro</small>
+                </button>
+
+                <button class="quick-card" onclick="mostrarTela('novaContribuicao')">
+                    <span class="quick-icon">Kz</span>
+                    <strong>Contribuição</strong>
+                    <small>Registar pagamento</small>
+                </button>
+
+                <button class="quick-card" onclick="mostrarTela('membros')">
+                    <span class="quick-icon">≡</span>
+                    <strong>Integrantes</strong>
+                    <small>Consultar membros</small>
+                </button>
+
+                <button class="quick-card" onclick="mostrarTela('historico')">
+                    <span class="quick-icon">↗</span>
+                    <strong>Histórico</strong>
+                    <small>Ver movimentações</small>
+                </button>
+
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">MOVIMENTAÇÕES</span>
+                    <h3>Contribuições recentes</h3>
+                </div>
+            </div>
+
+            <div id="contribuicoesRecentes" class="list-card">
+                <div class="empty-state">
+                    <strong>Nenhuma contribuição</strong>
+                    <span>Os novos registos aparecerão aqui.</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- INTEGRANTES -->
+        <section id="membros" class="screen">
+
+            <div class="page-header">
+                <div>
+                    <span class="eyebrow">CADASTRO</span>
+                    <h2>Integrantes</h2>
+                    <p>Lista geral dos membros da associação.</p>
+                </div>
+
+                <button class="primary-btn" onclick="gerarPDF()">
+                    Gerar PDF
+                </button>
+            </div>
+
+            <div class="member-summary">
+                <div>
+                    <span>Total de integrantes</span>
+                    <strong id="totalMembrosLista">0</strong>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <span>⌕</span>
+                <input
+                    type="text"
+                    id="pesquisaMembros"
+                    placeholder="Pesquisar por nome..."
+                    oninput="mostrarMembros()"
+                >
+            </div>
+
+            <div id="listaMembros" class="list-card">
+            </div>
+
+        </section>
+
+
+        <!-- NOVO INTEGRANTE -->
+        <section id="novoMembro" class="screen">
+
+            <div class="page-header">
+                <div>
+                    <span class="eyebrow">CADASTRO</span>
+                    <h2>Novo integrante</h2>
+                    <p>Registe um novo membro da Associação Terra Vermelha.</p>
+                </div>
+            </div>
+
+            <form onsubmit="cadastrarMembro(event)" class="form-card">
+
+                <div class="form-group">
+                    <label for="nomeMembro">Nome completo</label>
+                    <input
+                        id="nomeMembro"
+                        type="text"
+                        placeholder="Ex.: João Manuel"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="telefoneMembro">Telemóvel</label>
+                    <input
+                        id="telefoneMembro"
+                        type="tel"
+                        placeholder="Ex.: 923 000 000"
+                        required
+                    >
+                </div>
+
+                <div class="info-box">
+                    <strong>Nº de Registro automático</strong>
+                    <span>
+                        O sistema atribuirá automaticamente um número no formato
+                        <b>2026-001</b>, <b>2026-002</b>, <b>2026-003</b>...
+                    </span>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Cadastrar integrante
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- NOVA CONTRIBUIÇÃO -->
+        <section id="novaContribuicao" class="screen">
+
+            <div class="page-header">
+                <div>
+                    <span class="eyebrow">FINANCEIRO</span>
+                    <h2>Nova contribuição</h2>
+                    <p>Registe uma nova contribuição financeira.</p>
+                </div>
+            </div>
+
+            <form onsubmit="cadastrarContribuicao(event)" class="form-card">
+
+                <div class="form-group">
+                    <label for="membroContribuicao">Integrante</label>
+                    <select id="membroContribuicao" required>
+                        <option value="">Selecione um integrante</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="valorContribuicao">Valor</label>
+                    <input
+                        id="valorContribuicao"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Ex.: 5000"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="dataContribuicao">Data</label>
+                    <input
+                        id="dataContribuicao"
+                        type="date"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Registar contribuição
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- HISTÓRICO -->
+        <section id="historico" class="screen">
+
+            <div class="page-header">
+                <div>
+                    <span class="eyebrow">FINANCEIRO</span>
+                    <h2>Histórico</h2>
+                    <p>Histórico completo das contribuições.</p>
+                </div>
+            </div>
+
+            <div id="listaHistorico" class="list-card">
+            </div>
+
+        </section>
+
+
+        <!-- CONFIGURAÇÕES -->
+        <section id="configuracoes" class="screen">
+
+            <div class="page-header">
+                <div>
+                    <span class="eyebrow">SISTEMA</span>
+                    <h2>Configurações</h2>
+                    <p>Preferências da aplicação.</p>
+                </div>
+            </div>
+
+            <div class="settings-card">
+
+                <div class="setting-row">
+                    <div>
+                        <strong>Aparência</strong>
+                        <span>Alternar entre modo claro e escuro.</span>
+                    </div>
+
+                    <button class="secondary-btn" onclick="alternarTema()">
+                        Alterar tema
+                    </button>
+                </div>
+
+                <div class="setting-row">
+                    <div>
+                        <strong>Dados locais</strong>
+                        <span>Os dados deste protótipo são guardados no dispositivo.</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="bottom-nav">
+
+        <button onclick="mostrarTela('dashboard')" data-screen="dashboard" class="nav-item active">
+            <span>⌂</span>
+            <small>Início</small>
+        </button>
+
+        <button onclick="mostrarTela('membros')" data-screen="membros" class="nav-item">
+            <span>♙</span>
+            <small>Integrantes</small>
+        </button>
+
+        <button onclick="mostrarTela('novaContribuicao')" data-screen="novaContribuicao" class="nav-item">
+            <span>＋</span>
+            <small>Contribuir</small>
+        </button>
+
+        <button onclick="mostrarTela('historico')" data-screen="historico" class="nav-item">
+            <span>↗</span>
+            <small>Histórico</small>
+        </button>
+
+        <button onclick="mostrarTela('configuracoes')" data-screen="configuracoes" class="nav-item">
+            <span>⚙</span>
+            <small>Definições</small>
+        </button>
+
+    </nav>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
